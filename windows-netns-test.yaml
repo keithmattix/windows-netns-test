@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    pod: windows-netns-test
+  name: windows-netns-test
+spec:
+  securityContext:
+    windowsOptions:
+      hostProcess: true
+      runAsUserName: "NT AUTHORITY\\SYSTEM"
+  hostNetwork: true
+  containers:
+    - name: windows-netns-test
+      image: istiolocaltesting.azurecr.io/windows-netns-test:initial-test-6
+      command:
+        - windows-netns-test.exe
+      imagePullPolicy: IfNotPresent
+  nodeSelector:
+    kubernetes.io/os: windows
+    kubernetes.io/hostname: akswin000000
+  tolerations:
+    - effect: NoSchedule
+      key: node.kubernetes.io/unschedulable
+      operator: Exists
+    - effect: NoSchedule
+      key: node.kubernetes.io/network-unavailable
+      operator: Exists
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
