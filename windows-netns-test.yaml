@@ -12,7 +12,7 @@ spec:
   hostNetwork: true
   containers:
     - name: windows-netns-test
-      image: istiolocaltesting.azurecr.io/windows-netns-test:initial-test-6
+      image: istiolocaltesting.azurecr.io/windows-netns-test:initial-test-7
       command:
         - windows-netns-test.exe
       imagePullPolicy: IfNotPresent
