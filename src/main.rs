@@ -1,6 +1,6 @@
 use windows::Win32::NetworkManagement::IpHelper::{SetCurrentThreadCompartmentId, GetCurrentThreadCompartmentId};
 use hcn::{api, get_namespace, schema::*};
-use std::fmt;
+use tokio::net::TcpListener;
 
 
 fn main() {
@@ -24,6 +24,9 @@ fn main() {
             panic!("Error setting compartment id: {}", error.0);
         }
         println!("Printing from inside Compartment ID {}", GetCurrentThreadCompartmentId().0);
+        // Open a socket
+
+        // Change back to original compartment
         let error = SetCurrentThreadCompartmentId(compartment_id);
         if error.0 != 0 {
             panic!("Error setting compartment id: {}", error.0);
